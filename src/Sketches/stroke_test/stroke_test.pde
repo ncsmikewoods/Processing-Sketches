@@ -25,7 +25,6 @@ void drawStroke(){
   pushMatrix();
   
   float initialRotation = random(0, TWO_PI);
-  //float initialRotation = 0;
   
   rotate(initialRotation); // TODO : base on noise value
   float halfStrokeLength = (strokeDistance * (strokeSegments - 1))/ 2;
@@ -42,23 +41,13 @@ void drawStroke(){
   for(int i = 0; i < strokeSegments; i++) {
     PVector nextSpine = new PVector(strokeDistance, 0);
     PVector end = PVector.add(spineStart, nextSpine);
-       
-    println("cumulativeRotation:" + degrees(cumulativeRotation));
-    //println("start " + start);
-    //println("end " + end);
-    //println();
     
     end.rotate(curveTheta);
     nextSpine.rotate(cumulativeRotation);
     
-    println("spineStart " + spineStart);
-    println("end " + end);
-    println();
-    
     generateSegmentWithVectors(end, nextSpine, i*20);
     //drawDebugLine(spineStart, end);
     
-    println("------");
     spineStart = end;
     cumulativeRotation += curveTheta;
   }
@@ -76,19 +65,8 @@ void generateSegmentWithVectors(PVector v, PVector nextSpine, int fillColor) {
   vLeft.setMag(strokeWidth/2);
   vRight.setMag(strokeWidth/2);
   
-  //println("vLeft:" + vLeft);
-  //println("vRight:" + vRight);
-  
-  println("nextSpine - x:" + nextSpine.x + ", y:" + nextSpine.y + ", mag:" + nextSpine.mag() + ", heading:" + degrees(nextSpine.heading()));
-  println("vLeft - x:" + vLeft.x + ", y:" + vLeft.y + ", mag:" + vLeft.mag() + ", heading:" + degrees(vLeft.heading()));
-  println("vRight - x:" + vRight.x + ", y:" + vRight.y + ", mag:" + vRight.mag() + ", heading:" + degrees(vRight.heading()));
-  
   PVector newLeft = PVector.add(v, vLeft);
   PVector newRight = PVector.add(v, vRight);
-  
-  println("newLeft - x:" + newLeft.x + ", y:" + newLeft.y);
-  println("newRight - x:" + newRight.x + ", y:" + newRight.y);
-  println();
   
   vertex(newLeft.x, newLeft.y);
   vertex(newRight.x, newRight.y);
